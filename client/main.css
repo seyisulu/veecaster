@@ -1,0 +1,480 @@
+
+/*******************************
+             Page
+*******************************/
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin');
+html,
+body {
+  height: 100%;
+}
+html {
+  font-size: 14px;
+}
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  min-width: 320px;
+  background: #ffffff;
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.4285em;
+  color: rgba(0, 0, 0, 0.87);
+  font-smoothing: antialiased;
+}
+
+
+/*******************************
+             Headers
+*******************************/
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  line-height: 1.2857em;
+  margin: calc(2rem -  0.14285em ) 0em 1rem;
+  font-weight: bold;
+  padding: 0em;
+}
+h1 {
+  min-height: 1rem;
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.714rem;
+}
+h3 {
+  font-size: 1.28rem;
+}
+h4 {
+  font-size: 1.071rem;
+}
+h5 {
+  font-size: 1rem;
+}
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child {
+  margin-top: 0em;
+}
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child,
+h5:last-child {
+  margin-bottom: 0em;
+}
+
+
+/*******************************
+             Text
+*******************************/
+
+p {
+  margin: 0em 0em 1em;
+  line-height: 1.4285em;
+}
+p:first-child {
+  margin-top: 0em;
+}
+p:last-child {
+  margin-bottom: 0em;
+}
+
+/*-------------------
+        Links
+--------------------*/
+
+a {
+  color: #4183c4;
+  text-decoration: none;
+}
+a:hover {
+  color: #1e70bf;
+  text-decoration: none;
+}
+
+
+/*******************************
+          Highlighting
+*******************************/
+
+
+/* Site */
+::-webkit-selection {
+  background-color: #cce2ff;
+  color: rgba(0, 0, 0, 0.87);
+}
+::-moz-selection {
+  background-color: #cce2ff;
+  color: rgba(0, 0, 0, 0.87);
+}
+::selection {
+  background-color: #cce2ff;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Form */
+textarea::-webkit-selection,
+input::-webkit-selection {
+  background-color: rgba(100, 100, 100, 0.4);
+  color: rgba(0, 0, 0, 0.87);
+}
+textarea::-moz-selection,
+input::-moz-selection {
+  background-color: rgba(100, 100, 100, 0.4);
+  color: rgba(0, 0, 0, 0.87);
+}
+textarea::selection,
+input::selection {
+  background-color: rgba(100, 100, 100, 0.4);
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/*******************************
+         Site Overrides
+*******************************/
+
+.hidden.menu {
+  display: none;
+}
+
+.masthead.segment {
+  min-height: 700px;
+  padding: 1em 0em;
+}
+.masthead .logo.item img {
+  margin-right: 1em;
+}
+.masthead .ui.menu .ui.button {
+  margin-left: 0.5em;
+}
+.masthead h1.ui.header {
+  margin-top: 3em;
+  margin-bottom: 0em;
+  font-size: 4em;
+  font-weight: normal;
+}
+.masthead h2 {
+  font-size: 1.7em;
+  font-weight: normal;
+}
+
+.ui.vertical.stripe {
+  padding: 8em 0em;
+}
+.ui.vertical.stripe h3 {
+  font-size: 2em;
+}
+.ui.vertical.stripe .button + h3,
+.ui.vertical.stripe p + h3 {
+  margin-top: 3em;
+}
+.ui.vertical.stripe .floated.image {
+  clear: both;
+}
+.ui.vertical.stripe p {
+  font-size: 1.33em;
+}
+.ui.vertical.stripe .horizontal.divider {
+  margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+  padding: 0em;
+}
+.quote.stripe.segment .grid .column {
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.footer.segment {
+  padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+  display: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .ui.fixed.menu {
+    display: none !important;
+  }
+  .secondary.pointing.menu .item,
+  .secondary.pointing.menu .menu {
+    display: none;
+  }
+  .secondary.pointing.menu .toc.item {
+    display: block;
+  }
+  .masthead.segment {
+    min-height: 350px;
+  }
+  .masthead h1.ui.header {
+    font-size: 2em;
+    margin-top: 1.5em;
+  }
+  .masthead h2 {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+  }
+}
+
+body {
+  background-color: #DADADA;
+}
+body .auth.grid {
+  height: 100%;
+}
+div#__blaze-root {
+  height: 100%;
+}
+
+body .auth.grid .column {
+  max-width: 450px;
+}
+ 
+.ui.grid[class*="center aligned"] > .column,
+.ui.grid[class*="middle aligned"] > .column:not(.row) {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  vertical-align: middle;
+  -webkit-align-self: center !important;
+  -ms-flex-item-align: center !important;
+  align-self: center !important;
+}
+
+
+/*--- Veecolour Header ---*/
+
+.ui.veecolour.header {
+  color: #ee4043  !important;
+}
+
+a.ui.veecolour.header:hover {
+  color: #ee4043 !important;
+}
+
+.ui.veecolour.dividing.header {
+  border-bottom: 2px solid #ee4043;
+}
+
+/* Inverted */
+
+.ui.inverted.veecolour.header {
+  color: #ee4043 !important;
+}
+
+a.ui.inverted.veecolour.header:hover {
+  color: #ee4043 !important;
+}
+
+.veecolourbg {
+  background-color: #ee4043  !important;
+}
+
+/*--- Veecolour Buttons ---*/
+
+.ui.veecolour.buttons .button,
+.ui.veecolour.button {
+  background-color: #ee4043;
+  color: #ffffff;
+  text-shadow: none;
+  background-image: none;
+}
+
+.ui.veecolour.button {
+  box-shadow: 0px 0em 0px 0px rgba(238, 64, 67, 0.15) inset;
+}
+
+.ui.veecolour.buttons .button:hover,
+.ui.veecolour.button:hover {
+  background-color: #ee4043;
+  color: #ffffff;
+  text-shadow: none;
+}
+
+.ui.veecolour.buttons .button:focus,
+.ui.veecolour.button:focus {
+  background-color: #ee4043;
+  color: #ffffff;
+  text-shadow: none;
+}
+
+.ui.veecolour.buttons .button:active,
+.ui.veecolour.button:active {
+  background-color: #ee4043;
+  color: #ffffff;
+  text-shadow: none;
+}
+
+.ui.veecolour.buttons .active.button,
+.ui.veecolour.buttons .active.button:active,
+.ui.veecolour.active.button,
+.ui.veecolour.button .active.button:active {
+  background-color: #ee4043;
+  color: #ffffff;
+  text-shadow: none;
+}
+
+/* Basic */
+
+.ui.basic.veecolour.buttons .button,
+.ui.basic.veecolour.button {
+  box-shadow: 0px 0px 0px 1px #ee4043 inset !important;
+  color: #ee4043 !important;
+}
+
+.ui.basic.veecolour.buttons .button:hover,
+.ui.basic.veecolour.button:hover {
+  background: transparent !important;
+  box-shadow: 0px 0px 0px 1px #ee4043 inset !important;
+  color: #ee4043 !important;
+}
+
+.ui.basic.veecolour.buttons .button:focus,
+.ui.basic.veecolour.button:focus {
+  background: transparent !important;
+  box-shadow: 0px 0px 0px 1px #ee4043 inset !important;
+  color: #ee4043 !important;
+}
+
+.ui.basic.veecolour.buttons .active.button,
+.ui.basic.veecolour.active.button {
+  background: transparent !important;
+  box-shadow: 0px 0px 0px 1px #ee4043 inset !important;
+  color: #ee4043 !important;
+}
+
+.ui.basic.veecolour.buttons .button:active,
+.ui.basic.veecolour.button:active {
+  box-shadow: 0px 0px 0px 1px #ee4043 inset !important;
+  color: #ee4043 !important;
+}
+
+.ui.buttons:not(.vertical) > .basic.veecolour.button:not(:first-child) {
+  margin-left: -1px;
+}
+
+/* Inverted */
+
+.ui.inverted.veecolour.buttons .button,
+.ui.inverted.veecolour.button {
+  background-color: transparent;
+  box-shadow: 0px 0px 0px 2px #ff9e9e inset !important;
+  color: #ff9e9e;
+}
+
+.ui.inverted.veecolour.buttons .button:hover,
+.ui.inverted.veecolour.button:hover,
+.ui.inverted.veecolour.buttons .button:focus,
+.ui.inverted.veecolour.button:focus,
+.ui.inverted.veecolour.buttons .button.active,
+.ui.inverted.veecolour.button.active,
+.ui.inverted.veecolour.buttons .button:active,
+.ui.inverted.veecolour.button:active {
+    box-shadow: none !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.ui.inverted.veecolour.buttons .button:hover,
+.ui.inverted.veecolour.button:hover {
+  background-color: #ff9e9e;
+}
+
+.ui.inverted.veecolour.buttons .button:focus,
+.ui.inverted.veecolour.button:focus {
+  background-color: #ff9e9e;
+}
+
+.ui.inverted.veecolour.buttons .active.button,
+.ui.inverted.veecolour.active.button {
+  background-color: #ff9e9e;
+}
+
+.ui.inverted.veecolour.buttons .button:active,
+.ui.inverted.veecolour.button:active {
+  background-color: #ff9e9e;
+}
+
+/* Inverted Basic */
+
+.ui.inverted.veecolour.basic.buttons .button,
+.ui.inverted.veecolour.buttons .basic.button,
+.ui.inverted.veecolour.basic.button {
+  background-color: transparent;
+  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;
+  color: #ffffff !important;
+}
+
+.ui.inverted.veecolour.basic.buttons .button:hover,
+.ui.inverted.veecolour.buttons .basic.button:hover,
+.ui.inverted.veecolour.basic.button:hover {
+  box-shadow: 0px 0px 0px 2px #ff9e9e inset !important;
+  color: #ff9e9e !important;
+}
+
+.ui.inverted.veecolour.basic.buttons .button:focus,
+.ui.inverted.veecolour.basic.buttons .button:focus,
+.ui.inverted.veecolour.basic.button:focus {
+  box-shadow: 0px 0px 0px 2px #ff9e9e inset !important;
+  color: #ff9e9e !important;
+}
+
+.ui.inverted.veecolour.basic.buttons .active.button,
+.ui.inverted.veecolour.buttons .basic.active.button,
+.ui.inverted.veecolour.basic.active.button {
+  box-shadow: 0px 0px 0px 2px #ff9e9e inset !important;
+  color: #ff9e9e !important;
+}
+
+.ui.inverted.veecolour.basic.buttons .button:active,
+.ui.inverted.veecolour.buttons .basic.button:active,
+.ui.inverted.veecolour.basic.button:active {
+  box-shadow: 0px 0px 0px 2px #ff9e9e inset !important;
+  color: #ff9e9e !important;
+}
+
+/* Veecolour Icon */
+
+i.veecolour.icon {
+  color: #ee4043 !important;
+}
+
+i.inverted.veecolour.icon {
+  color: #ff9e9e !important;
+}
+
+i.inverted.bordered.veecolour.icon,
+i.inverted.circular.veecolour.icon {
+  background-color: #ee4043 !important;
+  color: #ffffff !important;
+}
+
+/* Veecolour End */
+
+.ui[class*="left icon"].input > textarea {
+  padding-left: 2.67142857em !important;
+  padding-right: 1em !important;
+}
+
+div#auth-box.auth.ui.middle.center.aligned.grid {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  vertical-align: middle;
+  -webkit-align-self: center !important;
+  -ms-flex-item-align: center !important;
+  align-self: center !important;
+}

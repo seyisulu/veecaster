@@ -1,0 +1,24 @@
+<template name="signIn">
+  <form id="signin-form" class="ui large form">
+    <div class="ui stacked segment">
+      <div class="field">
+        <div class="ui left icon input">
+          <i class="user icon"></i>
+          <input name="email" placeholder="E-mail address" type="email" id="signin-email">
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui left icon input">
+          <i class="lock icon"></i>
+          <input name="password" placeholder="Password" type="password" id="signin-pwd">
+        </div>
+      </div>
+      <div class="ui fluid large veecolour submit button">Sign In</div>
+    </div>
+    <div class="ui error message"></div>
+  </form>
+
+  <div class="ui message">
+    New to us? <a href="/sign-up">Sign Up</a>
+  </div>
+</template>

@@ -1,0 +1,29 @@
+<template name="join">
+  <div class="auth ui middle center aligned grid"
+  style="-webkit-box-orient: vertical;-webkit-box-direction: normal;-webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;vertical-align: middle;-webkit-align-self: center !important;-ms-flex-item-align: center !important;align-self: center !important;margin-top:5em;margin-bottom:5em;">
+    <div class="column">
+      <h2 class="ui veecolour image header">
+
+        <img src="/images/logo.png" class="image">
+        <div class="content">
+          Veecaster
+        </div>
+
+      </h2>
+      
+      <form id="join-form" class="ui large form">
+        <div class="ui piled segment" style="z-index:10">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input name="email" placeholder="E-mail address" type="email" id="join-email">
+            </div>
+          </div>
+          <button class="ui fluid large veecolour submit button">Join</button>
+        </div>
+        <div class="ui error message"></div>
+      </form>
+      
+    </div>
+  </div>
+</template>

@@ -1,0 +1,60 @@
+<template name="signUp">
+  <form class="ui large form">
+    <div class="ui stacked segment">
+      <div class="field">
+        <div class="ui left icon input">
+          <i class="user icon"></i>
+          <input name="fname" placeholder="First name" type="text">
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui left icon input">
+          <i class="user icon"></i>
+          <input name="lname" placeholder="Last name" type="text">
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui left icon input">
+          <i class="twitter icon"></i>
+          <input name="twittr" placeholder="Twitter Handle" type="text">
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui left icon input">
+          <i class="mail icon"></i>
+          <input name="email" placeholder="E-mail address" type="email">
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui left icon input">
+          <i class="lock icon"></i>
+          <input name="password" placeholder="Password" type="password">
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui left icon selection dropdown">
+          <i class="lock icon"></i>
+          <input name="gender" type="hidden">
+          <i class="dropdown icon"></i>
+          <div class="default text">Gender</div>
+          <div class="menu">
+            <div class="item" data-value="Male" data-text="Male">
+              <i class="male icon"></i>
+              Male
+            </div>
+            <div class="item" data-value="Female" data-text="Female">
+              <i class="female icon"></i>
+              Female
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui fluid large veecolour submit button">Sign Up</div>
+    </div>
+    <div class="ui error message"></div>
+  </form>
+
+  <div class="ui message">
+    Have an account? <a href="/sign-in">Sign In</a>
+  </div>
+</template>

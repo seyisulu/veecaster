@@ -1,0 +1,94 @@
+<template name="live">
+  <div class="ui column padded grid">
+    <div class="column">
+      <h2 class="ui veecolour header">{{semname}}</h2>
+    </div>
+  </div>
+  <div class="ui stackable two column padded grid">
+    <div class="ten wide column">
+      
+    </div>
+    <div class="six wide column">
+      <div class="ui segment">
+        
+        <div class="ui pointing secondary menu">
+          <a class="active item" data-tab="chattr">Chat</a>
+          <a class="item" data-tab="twittr">Twitter</a>
+        </div>
+        <div class="ui active tab segment" data-tab="chattr">
+          {{#if Template.subscriptionsReady}}
+            <div class="ui minimal comments">
+            {{#if havemsgs}}
+              {{#each messages}}
+                  <div class="comment">
+                    <a class="avatar">
+                      <img src="/images/elyse.png">
+                    </a>
+                    <div class="content">
+                      <a class="author">{{usrnm usr}}</a>
+                      <div class="metadata">
+                        <span class="date">{{human dte}}</span>
+                      </div>
+                      <div class="text">
+                        {{msg}}
+                      </div>
+                      <div class="actions">
+                        <a class="reply">Tweet</a>
+                      </div>
+                    </div>
+                  </div>
+              {{/each}}
+            {{else}}
+                <div class="comment">
+                  <a class="avatar">
+                    <img src="/images/nan.jpg">
+                  </a>
+                  <div class="content">
+                    <a class="author">Veecaster</a>
+                    <div class="metadata">
+                      <span class="date">{{human}}</span>
+                    </div>
+                    <div class="text">
+                      No messages yet.
+                    </div>
+                    <div class="actions">
+                      <a class="reply">Reply</a>
+                    </div>
+                  </div>
+                </div>
+            {{/if}}
+            </div>
+            <div class="ui action fluid input">
+              <input type="text" value="" id="txtchat">
+              <button class="ui veecolour icon button" id="btnchat">
+                <i class="chat icon"></i>
+              </button>
+            </div>
+          {{else}}
+            <div class="ui segment">
+              <div class="ui padded">
+                <div class="ui text active loader">Loading</div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+        <div class="ui tab segment" data-tab="twittr">
+          <div class="ui inverted segment">
+            <div class="ui inverted veecolour divided animated list">
+              <div class="item">
+                <i class="twitter icon"></i>
+                <div class="content">
+                  <div class="header">@user</div>
+                  <div class="description">Hello Veecaster!</div>
+                  <div class="description"><small>{{human}}</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div><!-- .ui.segment -->
+      
+    </div>
+  </div>
+</template> 

@@ -1,0 +1,91 @@
+<template name="seminars">
+  <div class="ui padded column grid">
+    <div class="column">
+      <h2 class="ui veecolour header">Seminars</h2>
+    </div>
+  </div>
+  <div class="ui stackable two column padded grid">
+    <div class="ten wide column">
+      {{#if Template.subscriptionsReady}}
+        {{#if havesems}}
+          <div class="ui stackable three column grid">
+          {{#each seminars}}
+          <div class="column">
+            <div class="ui card">
+              <div class="image">
+                <img src="/images/nan.jpg" >
+              </div>
+              <div class="content">
+                <a class="header">{{name}}</a>
+                <div class="meta">
+                  <span class="date">{{human date}}</span>
+                </div>
+                <div class="description">
+                  {{desc}}
+                </div>
+              </div>
+              <div class="extra content">
+                <a>
+                  <i class="write teal icon"></i>Edit                  
+                </a>
+                &nbsp;
+                <a href="{{startlink _id}}">
+                  <i class="chevron right veecolour icon"></i>Start                  
+                </a>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+          </div>
+        {{else}}
+          <div class="ui centered card">
+            <div class="image">
+              <img src="/images/elyse.png">
+            </div>
+            <div class="content">
+              <div class="header">404</div>
+              <div class="meta">No seminars created yet.</div>
+            </div>
+          </div>
+        {{/if}}
+      {{else}}
+        <div class="ui segment" style="height: 100px;">
+          <div class="ui padded">
+            <div class="ui active large text inline loader">Loading</div>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+    <div class="six wide column">
+      <form class="ui large form" id="semform">
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui veecolour left icon input">
+              <i class="comment icon"></i>
+              <input id="sf-name" placeholder="Teleseminar name" type="text">
+            </div>
+          </div>
+          
+          <div class="field">
+            <div class="ui calendar" id="semdate">
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input id="sf-date" type="text" placeholder="Date/Time" readonly>
+              </div>
+            </div>
+          </div>
+          
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="file icon"></i>
+              <textarea id="sf-desc"></textarea>
+            </div>
+          </div>
+          
+          <div class="ui large veecolour submit button">Create Teleseminar</div>
+        </div>
+        <div class="ui error message"></div>
+      </form>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,107 @@
+<template name="homeLayout">
+
+  <div class="ui large top fixed menu transition hidden">
+    <div class="ui container">
+      <div href="/" class="header item">
+        <img class="logo" src="/images/logo.png">
+        Veecaster
+      </div>
+      <a class="active item">Home</a>
+      <a class="item">About</a>
+      <a class="item">Contact</a>
+      <a class="item">Terms</a>
+      <div class="right menu">
+        <div class="item">
+          <a class="ui button" href="/sign-in" target="_blank">Sign In</a>
+        </div>
+        <div class="item">
+          <a class="ui primary button" href="/sign-up" target="_blank">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="ui vertical inverted sidebar menu left">
+    <a class="active item">Home</a>
+    <a class="item">About</a>
+    <a class="item">Contact</a>
+    <a class="item">Terms</a>
+    <a class="item" href="/sign-in" target="_blank">Sign In</a>
+    <a class="item" href="/sign-up" target="_blank">Sign Up</a>
+  </div>
+  
+  
+  <div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment">
+
+      <div class="ui container">
+        <div class="ui large secondary inverted pointing menu">
+          <a class="toc item">
+            <i class="sidebar icon"></i>
+          </a>
+          <a class="item" href="/">
+            <img class="logo" src="/images/logo.png" style="height: 20px;width: 20px;">
+          </a>
+          <a class="active item">Home</a>
+          <a class="item">About</a>
+          <a class="item">Contact</a>
+          <a class="item">Terms</a>
+          <div class="right item">
+            <a class="ui inverted button" href="/sign-in" target="_blank">Sign In</a>
+            <a class="ui inverted veecolour button" href="/sign-up" target="_blank">Sign Up</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui text container">
+        <img src="/images/logo.png" style="margin-top: 3em;">
+        <br>
+        <h1 class="ui inverted header" style="margin-top: 0;">
+          Veecaster
+        </h1>
+        <h2>Modern Teleseminar Platform.</h2>
+        <div class="ui huge veecolour button">Create Account <i class="right arrow icon"></i></div>
+      </div>
+
+    </div>
+    
+    {{>Template.dynamic template=content}}
+
+    <div class="ui inverted vertical footer segment">
+      <div class="ui aligned container">
+        <div class="ui stackable inverted divided equal height stackable grid">
+          <div class="three wide column">
+            <h4 class="ui inverted header">About</h4>
+            <div class="ui inverted link list">
+              <a href="#" class="item">Sitemap</a>
+              <a href="#" class="item">Contact Us</a>
+              <a href="#" class="item">Terms &amp; Conditions</a>
+              <a href="#" class="item">Privacy Policy</a>
+            </div>
+          </div>
+          <div class="three wide column">
+            <h4 class="ui inverted header">Services</h4>
+            <div class="ui inverted link list">
+              <a href="#" class="item">Teleseminars</a>
+              <a href="#" class="item">Inseminar Chat</a>
+              <a href="#" class="item">Recorded Sessions</a>
+              <a href="#" class="item">Screencasting</a>
+            </div>
+          </div>
+          <div class="seven wide column">
+            <h4 class="ui inverted header">Veecaster</h4>
+            <p>Modern Teleseminar Platform</p>
+          </div>
+        </div>
+      </div>
+      <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        <img src="/images/logo.png" class="ui centered mini image">
+        <div class="ui horizontal inverted small divided link list">
+          <a class="item" href="/">&copy; 2016 Veecaster</a>
+          <a class="item" href="https://blueenzyme.com/">Development:= BlueEnzyme Ltd.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
