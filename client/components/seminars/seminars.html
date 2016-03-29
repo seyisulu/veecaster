@@ -5,6 +5,39 @@
     </div>
   </div>
   <div class="ui stackable two column padded grid">
+    
+    <div class="six wide column">
+      <form class="ui large form" id="semform">
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui veecolour left icon input">
+              <i class="comment icon"></i>
+              <input id="sf-name" placeholder="Teleseminar name" type="text">
+            </div>
+          </div>
+          
+          <div class="field">
+            <div class="ui calendar" id="semdate">
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input id="sf-date" type="text" placeholder="Date/Time" readonly>
+              </div>
+            </div>
+          </div>
+          
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="file icon"></i>
+              <textarea id="sf-desc"></textarea>
+            </div>
+          </div>
+          
+          <div class="ui large veecolour submit button">Create Teleseminar</div>
+        </div>
+        <div class="ui error message"></div>
+      </form>
+    </div>
+    
     <div class="ten wide column">
       {{#if Template.subscriptionsReady}}
         {{#if havesems}}
@@ -49,43 +82,17 @@
           </div>
         {{/if}}
       {{else}}
-        <div class="ui segment" style="height: 100px;">
-          <div class="ui padded">
-            <div class="ui active large text inline loader">Loading</div>
+        <div class="ui icon positive message">
+          <i class="notched circle loading icon"></i>
+          <div class="content">
+            <div class="header">
+              Veecaster: please wait...
+            </div>
+            <p>The seminars are being loaded.</p>
           </div>
         </div>
       {{/if}}
     </div>
-    <div class="six wide column">
-      <form class="ui large form" id="semform">
-        <div class="ui stacked segment">
-          <div class="field">
-            <div class="ui veecolour left icon input">
-              <i class="comment icon"></i>
-              <input id="sf-name" placeholder="Teleseminar name" type="text">
-            </div>
-          </div>
-          
-          <div class="field">
-            <div class="ui calendar" id="semdate">
-              <div class="ui left icon input">
-                <i class="calendar icon"></i>
-                <input id="sf-date" type="text" placeholder="Date/Time" readonly>
-              </div>
-            </div>
-          </div>
-          
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="file icon"></i>
-              <textarea id="sf-desc"></textarea>
-            </div>
-          </div>
-          
-          <div class="ui large veecolour submit button">Create Teleseminar</div>
-        </div>
-        <div class="ui error message"></div>
-      </form>
-    </div>
+    
   </div>
 </template>

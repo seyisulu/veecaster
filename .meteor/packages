@@ -28,3 +28,5 @@ kadira:flow-router
 momentjs:moment
 harrison:papa-parse
 reactive-var
+jparker:crypto-hmac
+jparker:crypto-base64
