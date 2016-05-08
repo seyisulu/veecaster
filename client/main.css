@@ -239,7 +239,7 @@ div#__blaze-root {
 body .auth.grid .column {
   max-width: 450px;
 }
- 
+
 .ui.grid[class*="center aligned"] > .column,
 .ui.grid[class*="middle aligned"] > .column:not(.row) {
   -webkit-box-orient: vertical;
@@ -477,4 +477,10 @@ div#auth-box.auth.ui.middle.center.aligned.grid {
   -webkit-align-self: center !important;
   -ms-flex-item-align: center !important;
   align-self: center !important;
+}
+
+@media only screen and (max-width: 700px) {
+  .secondary.pointing.menu .item, .secondary.pointing.menu .menu {
+      display: flex;
+  }
 }

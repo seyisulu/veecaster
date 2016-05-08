@@ -6,8 +6,10 @@ Meteor.startup(() => {
 
 });
 
-veeMsg = function(msg) {
-  Session.set('mdlmg', msg);
+veeMsg = function(msg, type) {
+  let mdltype = type == 'warning'? 'warning' : 'info';
+  Session.set('mdltype', mdltype);
+  Session.set('mdlmsg', msg);
 
   $('#veemdl')
     .modal({
@@ -29,6 +31,12 @@ veeMsg = function(msg) {
 Template.body.helpers({
   human: function(dte) {
     return moment(dte).fromNow();
+  },
+  mdlmsg: function() {
+    return Session.get('mdlmsg');
+  },
+  mdltype: function() {
+    return Session.get('mdltype');
   }
 });
 
@@ -70,23 +78,6 @@ Template.authLayout.onRendered(function() {
       }
     });
   $('.ui.dropdown').dropdown();
-});
-
-Template.signIn.events({
-  'submit #signin-form': function(e, t) {
-    e.preventDefault();
-    var email = t.find('#signin-email').value.trim()
-      , password = t.find('#signin-pwd').value.trim();
-
-    Meteor.loginWithPassword(email, password, function(err){
-      if (err){
-        alert('Invalid username and/or password.');
-      } else {
-        FlowRouter.go('/app/seminars');
-      }
-    });
-    return false; 
-  }
 });
 
 Template.siteLayout.onRendered(function() {

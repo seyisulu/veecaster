@@ -47,6 +47,9 @@ Template.seminars.helpers({
   },
   startlink: function(id) {
     return `/app/start/${id}`;
+  },
+  livecslink: function(seminar) {
+    return `/livecs/${seminar.coach}/${seminar._id}`;
   }
 });
 Template.seminars.events({

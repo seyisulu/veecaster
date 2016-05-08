@@ -1,40 +1,40 @@
 <template name="signUp">
-  <form class="ui large form">
+  <form id="signup-form" class="ui large form">
     <div class="ui stacked segment">
       <div class="field">
         <div class="ui left icon input">
           <i class="user icon"></i>
-          <input name="fname" placeholder="First name" type="text">
+          <input id="signup-fname" placeholder="First name" type="text" required>
         </div>
       </div>
       <div class="field">
         <div class="ui left icon input">
           <i class="user icon"></i>
-          <input name="lname" placeholder="Last name" type="text">
+          <input id="signup-lname" placeholder="Last name" type="text" required>
         </div>
       </div>
       <div class="field">
         <div class="ui left icon input">
           <i class="twitter icon"></i>
-          <input name="twittr" placeholder="Twitter Handle" type="text">
+          <input id="signup-twittr" placeholder="Twitter Handle" type="text">
         </div>
       </div>
       <div class="field">
         <div class="ui left icon input">
           <i class="mail icon"></i>
-          <input name="email" placeholder="E-mail address" type="email">
+          <input id="signup-email" placeholder="E-mail address" type="email" required>
         </div>
       </div>
       <div class="field">
         <div class="ui left icon input">
           <i class="lock icon"></i>
-          <input name="password" placeholder="Password" type="password">
+          <input id="signup-password" placeholder="Password" type="password" required>
         </div>
       </div>
       <div class="field">
         <div class="ui left icon selection dropdown">
           <i class="lock icon"></i>
-          <input name="gender" type="hidden">
+          <input id="signup-gender" name="gender" type="hidden">
           <i class="dropdown icon"></i>
           <div class="default text">Gender</div>
           <div class="menu">
