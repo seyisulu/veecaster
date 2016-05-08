@@ -234,7 +234,7 @@ Template.livecs.helpers({
   usrnm: (email = 'anonymous@gmail.com') => { return email.split('@')[0]; },
   usrid: usrid,
   fllnm: fllnm,
-  ownmsg: (msg) => { console.log(msg.uid); return msg.uid == usrid(); },
+  ownmsg: (msg) => { return msg.uid == usrid(); },
   supportsMedia: supportsMedia,
   isCoach: () => { return FlowRouter.getParam('coach') === Meteor.userId(); }
 });
@@ -274,7 +274,8 @@ Template.livecs.events({
 
 Template.livecs.onRendered(function() {
   $('.menu .item').tab();
-  var lk = window.location;
+  let lk = window.location,
+      url = 'http://jsonplaceholder.typicode.com/posts';
   client = new BinaryClient((lk.protocol==='http:' && 'ws:' || 'wss:') + '//' + lk.hostname + ':9000');
   if (FlowRouter.getParam('coach') === Meteor.userId()) {
     this.find('#uploading').style.display = 'none';
@@ -287,10 +288,18 @@ Template.livecs.onRendered(function() {
     setupTraineeMedia();
     console.log('>:< Trainee online');
   }
+  HTTP.call('GET', url, {}, (err, res) => { console.log( err && err || res ); });
 });
 
 function rfrshMsgs(n = 5) {
   Session.set('chtmsgs', Messages.find({}, { order: { dte: -1 }, limit: n }).fetch().reverse());
+}
+window.rfrshTwts = function (opts) {
+  Meteor.call('getTweets',
+              { sem: opts.sem, scr: opts.scr.split('@')[1] },
+              (error) => {
+                console.log(error && error || 'Success');
+              });
 }
 
 Template.livecs.onCreated(function() {
@@ -304,5 +313,6 @@ Template.livecs.onCreated(function() {
     Session.set('chtmsgs', Messages.find({}, { sort: { dte: -1 }, limit: 5 }).fetch().reverse());
     this.subscribe('messages', Session.get('semid'));
     this.subscribe('seminar', Session.get('semid'));
+    this.subscribe('tweets', Session.get('semid'));
   });
 });
