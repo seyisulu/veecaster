@@ -6,6 +6,7 @@ let insmsg = (sem, msg, usr, uid, tpl) => {
     msg: msg,
     usr: usr,
     uid: uid,
+    cch: Meteor.userId() == Session.get('coach')? Meteor.userId(): false,
     dte: Date.now()
   }, function(error, result) {
     if(error) {
@@ -128,10 +129,13 @@ soundController.stopStreaming = function () {
 };
 soundController.playCache = function (cache) {
   while (cache.length) {
-    var buffer    = cache.shift();
-    var source    = soundController.speakerContext.createBufferSource();
+    var buffer    = cache.shift(),
+        source    = soundController.speakerContext.createBufferSource(),
+        gainnd    = soundController.speakerContext.createGain();
     source.buffer = buffer;
-    source.connect(soundController.speakerContext.destination);
+    source.connect(gainnd);
+    gainnd.connect(soundController.speakerContext.destination);
+    gainnd.gain.value = 0.9;
     if (soundController.nextTime == 0) {
       // add a delay of 0.05 seconds
       soundController.nextTime = soundController.speakerContext.currentTime + 0.05;
@@ -186,8 +190,8 @@ function setupTraineeMedia() {
     var audioCache = [];
     console.log('>:> Receiving audio stream');
     stream.on('data', function (data) {
-      var array = new Float32Array(data);
-      var buffer = soundController.speakerContext.createBuffer(1, 2048, 44100);
+      var array = new Float32Array(data);//44100
+      var buffer = soundController.speakerContext.createBuffer(1, 2048, 48000);
       buffer.copyToChannel(array, 0);
       audioCache.push(buffer);
       // make sure we put at least 5 chunks in the buffer before starting
@@ -198,9 +202,33 @@ function setupTraineeMedia() {
     });
     stream.on('end', () => {
       document.getElementById('vstreaming').style.display = 'none';
-      console.log('[:] Stopped audio stream');
+      console.log(']:[ Stopped audio stream');
     });
   });
+}
+
+function startRecording() {
+  if(!recorderSetup) {
+    setupCoachMedia();
+  }
+  console.log(">:< Recording Started");
+  audioRecorder.record();
+}
+
+function completeRecording() {
+  audioRecorder.stop();
+  console.log(">:< Recording stopped.");
+  document.getElementById('uploading').style.display = 'block';
+  audioRecorder.exportWAV(function (audioBlob) {
+    document.getElementById('uploading').style.display = 'none';
+    document.getElementById('uploaded').style.display = 'block';
+    document.getElementById('vc-a-save').href = window.URL.createObjectURL(audioBlob);
+    document.getElementById('vc-a-save').download = `${Session.get('semid')+'-'+Date.now()}.wav`;
+ 		audioRecorder.clear();
+  });
+  veeMsg('Audio sucessfully recorded.');
+  //mediaStream.stop();
+  //FlowRouter.go('/app/seminars');
 }
 
 function usrid() {
@@ -227,6 +255,7 @@ function fllnm() {
 Template.livecs.helpers({
   twts: () => { return Session.get('vtweets'); },
   usrimg: (usr) => { return usr.profile_image_url_https; },
+  coached: (cch) => { return cch == Session.get('coach')? '<i class="angle double up green icon"></i>':''; },
   havetwts: () => { return Session.get('vtweets').length > 0; },
   messages: () => { return Session.get('chtmsgs'); },
   havemsgs: () => { return Session.get('chtmsgs').length > 0; },
@@ -252,14 +281,14 @@ Template.livecs.events({
     evt.preventDefault();
     tpl.find('#telestopper').style.display = 'block';
     tpl.find('#telestarter').style.display = 'none';
-    //startRecording();
+    startRecording();
     soundController.startStreaming();
   },
   'click .telestopper': function(evt, tpl) {
     evt.preventDefault();
     tpl.find('#telestopper').style.display = 'none';
     tpl.find('#telestarter').style.display = 'block';
-    //completeRecording();
+    completeRecording();
     soundController.stopStreaming();
   },
   'click #btnchat': function(evt, tpl) {

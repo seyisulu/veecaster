@@ -1,0 +1,32 @@
+<template name="uploadPDF">
+  {{#if currentFile}}
+    <b></b>:
+    <div class="ui statistic">
+      <div class="value">
+        <i class="pdf file outline icon"></i> {{currentFile.file.name}}
+      </div>
+      <div class="label">
+        Name
+      </div>
+    </div>
+    <div class="ui statistic">
+      <div class="value">
+        <i class="upload icon"></i> {{progress}}
+      </div>
+      <div class="label">
+        Percent
+      </div>
+    </div>
+    <button id="resetPDF" class="ui labeled red icon button">
+      <i class="refresh icon"></i>
+      Reset
+    </button>
+  {{else}}
+    <div>
+      <label for="fileInput" class="ui veecolour icon button">
+        <i class="pdf file outline icon"></i> {{fileOrSelect this}}
+      </label>
+      <input type="file" id="fileInput" style="display:none" data-semid="{{_id}}">
+    </div>
+  {{/if}}
+</template>

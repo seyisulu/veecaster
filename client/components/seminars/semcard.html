@@ -19,16 +19,16 @@
       <div class="ui tab " data-tab="sem-pdf">
         <h3 class="ui header">Upload PDF</h3>
         <div class="meta">
-          <span class="date">Max: 15MB</span>
+          <span class="date">{{name}} <small>(Max: 5MB)</small></span>
         </div>
         <div class="description">
-          PDF
+          {{> uploadPDF }}
         </div>
       </div>
       <div class="ui tab " data-tab="sem-edit">
         <h3 class="ui header">Make Changes</h3>
         <div class="meta">
-          <span class="date">Edit Teleseminar</span>
+          <span class="date">{{name}}</span>
         </div>
         <div class="description">
           ...
@@ -37,11 +37,11 @@
       <div class="ui tab " data-tab="sem-start">
         <h3 class="ui header">Go Live</h3>
         <div class="meta">
-          <span class="date">Start Teleseminar</span>
+          <span class="date">{{name}}</span>
         </div>
         <div class="description">
           <a href="{{livecslink this}}">
-            Start
+            <i class="rss veecolour icon"></i> Broadcast
           </a>
         </div>
       </div>

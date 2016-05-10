@@ -46,15 +46,6 @@
             <div class="ui statistics" id="uploaded">
               <div class="ui horizontal statistic">
                 <div class="value">
-                  <i class="file audio outline icon"></i>
-                  <span id="vc-a-size">5</span>
-                </div>
-                <div class="label">
-                  MB
-                </div>
-              </div>
-              <div class="ui horizontal statistic">
-                <div class="value">
                   <i class="download icon"></i>
                   <a id="vc-a-save" href="">Click</a>
                 </div>
@@ -100,7 +91,7 @@
       </div>
 
       <div class="ui">
-        <div class="ui pointing secondary menu">
+        <div class="ui pointing secondary menu vtabbed">
           <a class="active item" data-tab="chattr">Chat</a>
           <a class="item" data-tab="twittr">Twitter</a>
         </div>
@@ -121,9 +112,9 @@
                       </div>
                     {{else}}
                       <div class="item">
-                        <i class="comments icon"></i>
+                        <i class="comments outline icon"></i>
                         <div class="content">
-                          <div class="header">{{usr}}</div>
+                          <div class="header">{{usr}} {{{coached cch}}}</div>
                           <div class="description">{{msg}}</div>
                           <div class="description"><small>{{human dte}}</small></div>
                         </div>
@@ -174,7 +165,7 @@
                   <img src="{{usrimg user}}" >
                 </a>
                 <div class="content">
-                  <a class="author">{{twtusr user}}</a>
+                  <a class="author">@{{twtusr user}}</a>
                   <div class="metadata">
                     <span class="date">{{created_at}}</span>
                   </div>
