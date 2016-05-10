@@ -180,10 +180,11 @@ function setupCoachMedia() {
 function setupTraineeMedia() {
   soundController.speakerContext = new AudioContext();
   client.on('stream', function (stream) {
+    document.getElementById('vstreaming').style.display = 'block';
     soundController.nextTime = 0;
     var init = false;
     var audioCache = [];
-    console.log('|:> Receiving audio stream');
+    console.log('>:> Receiving audio stream');
     stream.on('data', function (data) {
       var array = new Float32Array(data);
       var buffer = soundController.speakerContext.createBuffer(1, 2048, 44100);
@@ -195,7 +196,10 @@ function setupTraineeMedia() {
         soundController.playCache(audioCache);
       }
     });
-    stream.on('end', () => { console.log('[:] Stopped audio stream'); });
+    stream.on('end', () => {
+      document.getElementById('vstreaming').style.display = 'none';
+      console.log('[:] Stopped audio stream');
+    });
   });
 }
 
@@ -221,6 +225,9 @@ function fllnm() {
 }
 
 Template.livecs.helpers({
+  twts: () => { return Session.get('vtweets'); },
+  usrimg: (usr) => { return usr.profile_image_url_https; },
+  havetwts: () => { return Session.get('vtweets').length > 0; },
   messages: () => { return Session.get('chtmsgs'); },
   havemsgs: () => { return Session.get('chtmsgs').length > 0; },
   human: (dte = new Date()) => { return moment(+dte).fromNow(); },
@@ -235,6 +242,7 @@ Template.livecs.helpers({
   usrid: usrid,
   fllnm: fllnm,
   ownmsg: (msg) => { return msg.uid == usrid(); },
+  twtusr: (usr) => { return usr.screen_name; },
   supportsMedia: supportsMedia,
   isCoach: () => { return FlowRouter.getParam('coach') === Meteor.userId(); }
 });
@@ -274,8 +282,7 @@ Template.livecs.events({
 
 Template.livecs.onRendered(function() {
   $('.menu .item').tab();
-  let lk = window.location,
-      url = 'http://jsonplaceholder.typicode.com/posts';
+  let lk = window.location;
   client = new BinaryClient((lk.protocol==='http:' && 'ws:' || 'wss:') + '//' + lk.hostname + ':9000');
   if (FlowRouter.getParam('coach') === Meteor.userId()) {
     this.find('#uploading').style.display = 'none';
@@ -285,34 +292,48 @@ Template.livecs.onRendered(function() {
     setupCoachMedia();
     console.log('>:< Coach online');
   } else {
+    this.find('#vstreaming').style.display = 'none';
     setupTraineeMedia();
     console.log('>:< Trainee online');
   }
-  HTTP.call('GET', url, {}, (err, res) => { console.log( err && err || res ); });
 });
 
-function rfrshMsgs(n = 5) {
-  Session.set('chtmsgs', Messages.find({}, { order: { dte: -1 }, limit: n }).fetch().reverse());
-}
-window.rfrshTwts = function (opts) {
-  Meteor.call('getTweets',
-              { sem: opts.sem, scr: opts.scr.split('@')[1] },
-              (error) => {
-                console.log(error && error || 'Success');
-              });
-}
+var rfrshTwtsInt,
+    rfrshMsgs = (n = 5) => {
+      Session.set('chtmsgs', Messages.find({}, { order: { dte: -1 }, limit: n }).fetch().reverse());
+    },
+    rfrshTwts = (n = 5) => {
+      if (!Meteor.user()) {
+        return -1;
+      }
+      let scr = Meteor.user().profile.twittr;
+      Meteor.call('getTweets',
+                  { sem: Session.get('semid'), scr: scr.split('@')[1], n: n },
+                  (error) => {
+                    console.log(error && error || '>:< Tweets Refreshed');
+                  });
+    };
+
+window.rfrshTwts = rfrshTwts;
 
 Template.livecs.onCreated(function() {
-  if (!Meteor.userId && !Session.get('usrid')) {
-    //Session.set('usrid', Math.random().toString().split('.')[1] + '@veecaster.com');
-    console.log('>:< empty trainee');
-  }
   Session.setDefault('chtmsgs', []);
+  Session.setDefault('vtweets', []);
   this.autorun(() => {
     if (!!Meteor.user()) { usrid(); fllnm(); }
     Session.set('chtmsgs', Messages.find({}, { sort: { dte: -1 }, limit: 5 }).fetch().reverse());
+    let twtz = Tweets.findOne({ sem: Session.get('semid') });
+    Session.set('vtweets', twtz && twtz.twt || []);
     this.subscribe('messages', Session.get('semid'));
     this.subscribe('seminar', Session.get('semid'));
     this.subscribe('tweets', Session.get('semid'));
   });
+  if (Meteor.userId()) {
+    rfrshTwts();
+    rfrshTwtsInt = Meteor.setInterval(rfrshTwts, 60 * 1000);
+  }
+});
+
+Template.livecs.onDestroyed(function() {
+  clearInterval(rfrshTwtsInt);
 });

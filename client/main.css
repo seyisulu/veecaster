@@ -481,6 +481,6 @@ div#auth-box.auth.ui.middle.center.aligned.grid {
 
 @media only screen and (max-width: 700px) {
   .secondary.pointing.menu .item, .secondary.pointing.menu .menu {
-      display: flex;
+    display: flex;
   }
 }

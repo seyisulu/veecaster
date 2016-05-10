@@ -5,18 +5,18 @@
     </div>
   </div>
   <div class="ui stackable two column padded grid">
-    
+
     <div class="six wide column">
       <form class="ui large form" id="semform">
-        <div class="ui stacked segment">
-          <div class="field">
+        <div class="ui inverted stacked segment">
+          <div class="required field">
             <div class="ui veecolour left icon input">
               <i class="comment icon"></i>
               <input id="sf-name" placeholder="Teleseminar name" type="text">
             </div>
           </div>
-          
-          <div class="field">
+
+          <div class="required field">
             <div class="ui calendar" id="semdate">
               <div class="ui left icon input">
                 <i class="calendar icon"></i>
@@ -24,50 +24,26 @@
               </div>
             </div>
           </div>
-          
-          <div class="field">
+
+          <div class="required field">
             <div class="ui left icon input">
               <i class="file icon"></i>
               <textarea id="sf-desc"></textarea>
             </div>
           </div>
-          
+
           <div class="ui large veecolour submit button">Create Teleseminar</div>
         </div>
         <div class="ui error message"></div>
       </form>
     </div>
-    
+
     <div class="ten wide column">
       {{#if Template.subscriptionsReady}}
         {{#if havesems}}
-          <div class="ui stackable three column grid">
+          <div class="ui four doubling stackable cards">
           {{#each seminars}}
-          <div class="column">
-            <div class="ui card">
-              <div class="image">
-                <img src="/images/nan.jpg" >
-              </div>
-              <div class="content">
-                <a class="header">{{name}}</a>
-                <div class="meta">
-                  <span class="date">{{human date}}</span>
-                </div>
-                <div class="description">
-                  {{desc}}
-                </div>
-              </div>
-              <div class="extra content">
-                <a>
-                  <i class="write teal icon"></i>Edit                  
-                </a>
-                &nbsp;
-                <a href="{{livecslink this}}">
-                  <i class="chevron right veecolour icon"></i>Start                  
-                </a>
-              </div>
-            </div>
-          </div>
+            {{> semcard }}
           {{/each}}
           </div>
         {{else}}
@@ -93,6 +69,6 @@
         </div>
       {{/if}}
     </div>
-    
+
   </div>
 </template>

@@ -65,10 +65,12 @@
             </div>
           {{else}}
             <div class="ui fluid card" id="vee-aud-card">
+              <!--
               <div class="image">
                 <canvas id="audispec" style="width:100%;height:250px;"></canvas>
               </div>
-              <div class="extra content">
+              -->
+              <div id="vstreaming" class="extra content">
                 <div class="ui icon positive message">
                   <i class="notched circle loading icon"></i>
                   <div class="content">
@@ -102,68 +104,43 @@
           <a class="active item" data-tab="chattr">Chat</a>
           <a class="item" data-tab="twittr">Twitter</a>
         </div>
-        <div class="ui active tab segment" data-tab="chattr">
+        <div class="ui active inverted tab segment" data-tab="chattr">
           {{#if Template.subscriptionsReady}}
-            <div class="ui minimal comments">
-            {{#if havemsgs}}
-              {{#each messages}}
-                {{#if ownmsg this}}
-                  <div class="comment">
-                    <a class="ui right floated circular mini image">
-                      <img src="/images/elyse.png">
-                    </a>
-                    <div class="content" style="text-align: right;">
-                      <a class="author">Me</a>
-                      <div class="metadata">
-                        <span class="date">{{human dte}}</span>
+            <div class="ui inverted segment">
+              <div class="ui inverted veecolour divided animated list">
+                {{#if havemsgs}}
+                  {{#each messages}}
+                    {{#if ownmsg this}}
+                      <div class="item">
+                        <i class="right floated chat icon"></i>
+                        <div class="right floated content">
+                          <div class="header">Me</div>
+                          <div class="description">{{msg}}</div>
+                          <div class="description"><small>{{human dte}}</small></div>
+                        </div>
                       </div>
-                      <div class="text">
-                        {{msg}}
+                    {{else}}
+                      <div class="item">
+                        <i class="comments icon"></i>
+                        <div class="content">
+                          <div class="header">{{usr}}</div>
+                          <div class="description">{{msg}}</div>
+                          <div class="description"><small>{{human dte}}</small></div>
+                        </div>
                       </div>
-                      <div class="actions">
-                        <a class="reply">Tweet</a>
-                      </div>
-                    </div>
-                  </div>
+                    {{/if}}
+                  {{/each}}
                 {{else}}
-                  <div class="comment">
-                    <a class="ui left floated circular mini image">
-                      <img src="/images/nan.jpg">
-                    </a>
+                  <div class="item">
+                    <i class="comments icon"></i>
                     <div class="content">
-                      <a class="author">{{usr}}</a>
-                      <div class="metadata">
-                        <span class="date">{{human dte}}</span>
-                      </div>
-                      <div class="text">
-                        {{msg}}
-                      </div>
-                      <div class="actions">
-                        <a class="reply">Tweet</a>
-                      </div>
+                      <div class="header">Me</div>
+                      <div class="description">No chat messages yet.</div>
+                      <div class="description"><small>{{human}}</small></div>
                     </div>
                   </div>
                 {{/if}}
-              {{/each}}
-            {{else}}
-                <div class="comment">
-                  <a class="avatar">
-                    <img src="/images/elyse.png">
-                  </a>
-                  <div class="content">
-                    <a class="author">Me&lt;</a>
-                    <div class="metadata">
-                      <span class="date">{{human}}</span>
-                    </div>
-                    <div class="text">
-                      No messages yet.
-                    </div>
-                    <div class="actions">
-                      <a class="reply">Reply</a>
-                    </div>
-                  </div>
-                </div>
-            {{/if}}
+              </div>
             </div>
             <div class="ui action fluid input">
               <input type="text" value="" id="txtchat">
@@ -188,23 +165,68 @@
           {{/if}}
         </div>
         <div class="ui tab segment" data-tab="twittr">
-          <div class="ui inverted segment">
-            <div class="ui inverted veecolour divided animated list">
-              <div class="item">
-                <i class="twitter icon"></i>
+          {{#if Template.subscriptionsReady}}
+            <div class="ui minimal comments">
+            {{#if havetwts}}
+              {{#each twts}}
+              <div class="comment">
+                <a class="ui left floated circular mini image">
+                  <img src="{{usrimg user}}" >
+                </a>
                 <div class="content">
-                  <div class="header">@user</div>
-                  <div class="description">Hello Veecaster!</div>
-                  <div class="description"><small>{{human}}</small></div>
+                  <a class="author">{{twtusr user}}</a>
+                  <div class="metadata">
+                    <span class="date">{{created_at}}</span>
+                  </div>
+                  <div class="text">
+                    {{{text}}}
+                  </div>
+                  <div class="actions">
+                    <span class="retweet"><i class="retweet icon"></i> {{retweet_count}}</span>
+                    <span class="favorite"><i class="favorite icon"></i> {{favorite_count}}</span>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{else}}
+              <div class="comment">
+                <a class="avatar">
+                  <img src="/images/elyse.png">
+                </a>
+                <div class="content">
+                  <a class="author">@veecaster</a>
+                  <div class="metadata">
+                    <span class="date">{{human}}</span>
+                  </div>
+                  <div class="text">
+                    No tweets.
+                  </div>
+                  <div class="actions">
+                    <a id="veetweet" class="reply"><i class="retweet icon"></i>Retweet</a>
+                  </div>
+                </div>
+              </div>
+            {{/if}}
+            </div>
+          {{else}}
+            <div class="ui">
+              <div class="ui padded">
+                <div class="ui icon message">
+                  <i class="notched circle loading icon"></i>
+                  <div class="content">
+                    <div class="header">
+                      Veecaster: please wait...
+                    </div>
+                    <p>The tweet stream is being loaded.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          {{/if}}
         </div>
 
       </div><!-- .ui.segment -->
     </div><!-- .five.wide.column -->
-
 
     <div class="eleven wide column">
       <div class="ui segment">

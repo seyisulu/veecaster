@@ -1,0 +1,28 @@
+{
+  "name": "veecastr",
+  "version": "1.0.0",
+  "description": "Veecaster Teleseminar Platform",
+  "main": "index.js",
+  "dependencies": {
+    "binaryjs": "^0.2.1",
+    "twit": "^2.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/blueenzyme/veecaster.git"
+  },
+  "keywords": [
+    "HTML5",
+    "Audio",
+    "Teleseminar",
+    "Chat",
+    "Twitter"
+  ],
+  "author": "Emmanuel Olowosulu",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/blueenzyme/veecaster#readme"
+}

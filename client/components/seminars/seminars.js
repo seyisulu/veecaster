@@ -34,6 +34,7 @@ Template.seminars.onRendered(function() {
       }
     });
 });
+
 Template.seminars.helpers({
   seminars: function() {
     var sems = Seminars.find({});
@@ -44,9 +45,6 @@ Template.seminars.helpers({
   },
   human: function(dte) {
     return moment(dte).fromNow();
-  },
-  startlink: function(id) {
-    return `/app/start/${id}`;
   },
   livecslink: function(seminar) {
     return `/livecs/${seminar.coach}/${seminar._id}`;

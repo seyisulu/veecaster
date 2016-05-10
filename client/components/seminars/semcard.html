@@ -1,0 +1,50 @@
+<template name="semcard">
+  <div class="ui fluid card">
+    <div class="content">
+      <div id="semtab-{{_id}}" class="ui pointing secondary menu">
+        <div class="active item" data-tab="sem-home"><a><i class="tasks veecolour icon"></i></a></div>
+        <div class="item" data-tab="sem-pdf"><a><i class="file pdf outline veecolour icon"></i></a></div>
+        <div class="item" data-tab="sem-edit"><a><i class="edit veecolour icon"></i></a></div>
+        <div class="item" data-tab="sem-start"><a><i class="chevron right veecolour icon"></i></a></div>
+      </div>
+      <div class="ui active tab " data-tab="sem-home">
+        <h3 class="ui header">{{name}}</h3>
+        <div class="meta">
+          <span class="date">{{human date}}</span>
+        </div>
+        <div class="description">
+          {{desc}}
+        </div>
+      </div>
+      <div class="ui tab " data-tab="sem-pdf">
+        <h3 class="ui header">Upload PDF</h3>
+        <div class="meta">
+          <span class="date">Max: 15MB</span>
+        </div>
+        <div class="description">
+          PDF
+        </div>
+      </div>
+      <div class="ui tab " data-tab="sem-edit">
+        <h3 class="ui header">Make Changes</h3>
+        <div class="meta">
+          <span class="date">Edit Teleseminar</span>
+        </div>
+        <div class="description">
+          ...
+        </div>
+      </div>
+      <div class="ui tab " data-tab="sem-start">
+        <h3 class="ui header">Go Live</h3>
+        <div class="meta">
+          <span class="date">Start Teleseminar</span>
+        </div>
+        <div class="description">
+          <a href="{{livecslink this}}">
+            Start
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

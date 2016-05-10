@@ -3,8 +3,10 @@ Accounts.config({
 });
 
 Meteor.startup(() => {
+  Tweets._ensureIndex({ 'sem': 1 });
   Messages._ensureIndex({ 'sem': 1 });
   Seminars._ensureIndex({ 'coach': 1 });
+
   if (Meteor.users.find().fetch().length === 0) {
     let users = [
       {
