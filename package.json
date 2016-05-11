@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "binaryjs": "^0.2.1",
+    "dropbox": "^0.10.3",
     "twit": "^2.2.4"
   },
   "devDependencies": {},
