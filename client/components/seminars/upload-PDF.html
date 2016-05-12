@@ -1,6 +1,5 @@
 <template name="uploadPDF">
   {{#if currentFile}}
-    <b></b>:
     <div class="ui statistic">
       <div class="value">
         <i class="pdf file outline icon"></i> {{currentFile.file.name}}
@@ -23,10 +22,10 @@
     </button>
   {{else}}
     <div>
-      <label for="fileInput" class="ui veecolour icon button">
+      <label for="file-{{_id}}" class="ui veecolour icon button">
         <i class="pdf file outline icon"></i> {{fileOrSelect this}}
       </label>
-      <input type="file" id="fileInput" style="display:none" data-semid="{{_id}}">
+      <input type="file" id="file-{{_id}}" class="uploader" style="display:none" data-semid="{{_id}}">
     </div>
   {{/if}}
 </template>

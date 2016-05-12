@@ -36,7 +36,7 @@ Meteor.startup(() => {
 
       let id = Accounts.createUser({
         email: user.email,
-        password: 'passme',
+        password: Meteor.settings.private.veecaster.defpass,
         profile: { fname: user.fname, lname: user.lname, twittr: '@seyisulu', gender: user.g },
       });
 
@@ -73,12 +73,7 @@ Meteor.startup(() => {
     }); //client.on
   }); //server.on
 
-  smtp = {
-    username: 'dan@danyll.com',
-    password: 'y3Z8TQxpxCiYsJJsCwyV0A',
-    server:   'smtp.mandrillapp.com',
-    port: 587
-  };
+  smtp = Meteor.settings.private.veecaster.smtp;
 
   process.env.MAIL_URL = 'smtp://' + encodeURIComponent(smtp.username) + ':' + encodeURIComponent(smtp.password) + '@' + encodeURIComponent(smtp.server) + ':' + smtp.port;
 

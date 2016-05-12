@@ -6,7 +6,7 @@ let insmsg = (sem, msg, usr, uid, tpl) => {
     msg: msg,
     usr: usr,
     uid: uid,
-    cch: Meteor.userId() == Session.get('coach')? Meteor.userId(): false,
+    cch: Meteor.userId(),
     dte: Date.now()
   }, function(error, result) {
     if(error) {

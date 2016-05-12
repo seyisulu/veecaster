@@ -480,8 +480,8 @@ div#auth-box.auth.ui.middle.center.aligned.grid {
 }
 
 @media only screen and (max-width: 700px) {
-  .secondary.pointing.menu.vtabbed .item,
-  .secondary.pointing.menu.vtabbed .menu {
+  .secondary.pointing.menu.show-700 .item,
+  .secondary.pointing.menu.show-700 .menu {
     display: flex;
   }
 }

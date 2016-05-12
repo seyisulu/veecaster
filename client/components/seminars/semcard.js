@@ -1,5 +1,7 @@
-Template.semcard.onRendered(() => {
-  $('.menu .item').tab();
+Template.semcard.onRendered(function() {
+  let div = this.find('.tbprnt');
+  //$('.menu .item').tab();
+  $(`#semtab-${div.dataset.semid} .menu .item`).tab({ context: 'parent' });
 });
 
 Template.semcard.helpers({

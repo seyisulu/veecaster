@@ -6,7 +6,11 @@
   "dependencies": {
     "binaryjs": "^0.2.1",
     "dropbox": "^0.10.3",
-    "twit": "^2.2.4"
+    "ecmascript": "0.0.0",
+    "fs": "0.0.2",
+    "meteor-node-stubs": "^0.2.3",
+    "twit": "^2.2.4",
+    "yandex-disk": "0.0.7"
   },
   "devDependencies": {},
   "scripts": {

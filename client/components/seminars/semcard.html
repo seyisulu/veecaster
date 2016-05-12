@@ -1,7 +1,7 @@
 <template name="semcard">
   <div class="ui fluid card">
-    <div class="content">
-      <div id="semtab-{{_id}}" class="ui pointing secondary menu">
+    <div class="content tbprnt" id="semtab-{{_id}}" data-semid="{{_id}}">
+      <div class="ui pointing secondary menu show-700">
         <div class="active item" data-tab="sem-home"><a><i class="tasks veecolour icon"></i></a></div>
         <div class="item" data-tab="sem-pdf"><a><i class="file pdf outline veecolour icon"></i></a></div>
         <div class="item" data-tab="sem-edit"><a><i class="edit veecolour icon"></i></a></div>
@@ -19,7 +19,7 @@
       <div class="ui tab " data-tab="sem-pdf">
         <h3 class="ui header">Upload PDF</h3>
         <div class="meta">
-          <span class="date">{{name}} <small>(Max: 5MB)</small></span>
+          <span class="date">{{name}}</span>
         </div>
         <div class="description">
           {{> uploadPDF }}
