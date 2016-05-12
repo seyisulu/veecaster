@@ -13,9 +13,6 @@
         {{#if supportsMedia}}
           {{#if isCoach}}
             <div class="ui fluid card" id="vee-rec-card">
-              <div class="image">
-                <canvas id="audispec" style="width:100%;height:250px;"></canvas>
-              </div>
               <div class="extra content">
                 <div class="ui two buttons">
                   <button class="ui green vertical animated telestarter button" id="telestarter">
@@ -31,6 +28,15 @@
                     </div>
                   </button>
                 </div>
+              </div>
+              <div class="image">
+                <canvas id="audispec" style="width:100%;height:250px;"></canvas>
+              </div>
+              <div class="extra content">
+                <i class="red microphone icon"></i> Recording Volume: {{ volume }}%
+              </div>
+              <div id="mic-volume" class="ui bottom attached red progress" >
+                <div class="bar"></div>
               </div>
             </div>
 

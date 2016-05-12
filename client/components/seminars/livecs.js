@@ -101,7 +101,7 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var soundController = {},
     client, context, counter = 0,
     mediaStreamCoach, audioRecorder,
-    recorderSetup;
+    recorderSetup, audioAnalyzerHub = {};
 
 soundController.streamerProcess = function (e) {
   var left = e.inputBuffer.getChannelData(0);
@@ -163,6 +163,8 @@ function setupCoachMedia() {
     //window.videoContext = window.videoCanvas.getContext('2d');
     context = new AudioContext();
     var audioInput = context.createMediaStreamSource(stream);
+    var audioAnalyzer = context.createAnalyser();
+
     var bufferSize = 2048;
     // create a JS node
     soundController.streamer = context.createScriptProcessor(bufferSize, 1, 1);
@@ -170,10 +172,32 @@ function setupCoachMedia() {
     audioInput.connect(soundController.streamer);
     soundController.streamer.connect(context.destination);
     console.log('>:< Audio connected');
+    // connect source to Analyser
+    audioAnalyzer.fftSize = 256;
+    audioInput.connect(audioAnalyzer);
+    // This just means we will have 128 "bins"
+    // (always half the analyzer.fftsize value),
+    // each containing a number between 0 and 255.
+    audioAnalyzerHub.streamData = new Uint8Array(128);
+    audioAnalyzerHub.volume = 0;
+    var audioStreamSampler = function() {
+      audioAnalyzer.getByteFrequencyData(audioAnalyzerHub.streamData);
+      var total = 0;
+      for (var i = 0; i < 80; i++) {
+        // get the volume from the first 80 bins only,
+        // else it gets too loud with treble
+        total += audioAnalyzerHub.streamData[i];
+      }
+      audioAnalyzerHub.volume = total > 10200? 99: Math.floor(total / 10200 * 100);
+      Session.set('audioAnalyzerHub.volume', audioAnalyzerHub.volume);
+    };
+    setInterval(audioStreamSampler, 250);
+    console.log('>:< Analyzer connected');
     // connect to Recorder
     audioRecorder = new Recorder(audioInput);
     recorderSetup = true;
     console.log('>:< Recorder connected');
+    console.log('>:< This coach is ready to roll...');
   });
   soundController.device.catch(function (err) {
     console.log("The following error occured: ", err);
@@ -271,6 +295,7 @@ Template.livecs.helpers({
   usrid: usrid,
   fllnm: fllnm,
   ownmsg: (msg) => { return msg.uid == usrid(); },
+  volume: (msg) => { return Session.get('audioAnalyzerHub.volume'); },
   twtusr: (usr) => { return usr.screen_name; },
   supportsMedia: supportsMedia,
   isCoach: () => { return FlowRouter.getParam('coach') === Meteor.userId(); }
@@ -348,6 +373,7 @@ window.rfrshTwts = rfrshTwts;
 Template.livecs.onCreated(function() {
   Session.setDefault('chtmsgs', []);
   Session.setDefault('vtweets', []);
+  Session.setDefault('audioAnalyzerHub.volume', 0);
   this.autorun(() => {
     if (!!Meteor.user()) { usrid(); fllnm(); }
     Session.set('chtmsgs', Messages.find({}, { sort: { dte: -1 }, limit: 5 }).fetch().reverse());
@@ -356,6 +382,7 @@ Template.livecs.onCreated(function() {
     this.subscribe('messages', Session.get('semid'));
     this.subscribe('seminar', Session.get('semid'));
     this.subscribe('tweets', Session.get('semid'));
+    $('#mic-volume').progress({ percent: Session.get('audioAnalyzerHub.volume'), autoSuccess: false });
   });
   if (Meteor.userId()) {
     rfrshTwts();
