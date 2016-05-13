@@ -1,7 +1,9 @@
 <template name="livecs">
   <div class="ui column padded grid">
     <div class="column">
-      <h2 class="ui veecolour header">{{semname}}</h2>
+      {{#if Template.subscriptionsReady}}
+        <h2 class="ui veecolour header">{{semnr.name}}</h2>
+      {{/if}}
     </div>
   </div>
   <div class="ui stackable two column padded grid">
@@ -27,8 +29,8 @@
                 </div>
               </button>
 
-              <div id="visualizer" class="image" style="height: 320px;">
-              </div>
+              <div id="visualizer" class="image" style="height: 320px;"></div>
+
               <div class="extra content">
                 <i class="red microphone icon"></i> Recording Volume: {{ volume }}%
               </div>
@@ -222,11 +224,27 @@
       </div><!-- .ui.segment -->
     </div><!-- .five.wide.column -->
 
-    <div class="eleven wide column">
-    
-          <div id="pdfContainer" class="ui segment">
-            <canvas id="pdfcanvas"></canvas>
+    <div class="eleven wide column" style="height: 100%;">
+      {{#if Template.subscriptionsReady}}
+
+        <div class="ui fluid card">
+          <div class="image">
+            <object data="{{fileURL pdfobj}}" type="application/pdf" width="100%" height="800" style="width: 100%; height: 800px; display: block;">=
+              <div class="ui statistics">
+                <div class="ui horizontal statistic">
+                  <div class="value">
+                    <i class="download icon"></i>
+                    <a href="{{fileURL pdfobj}}">Download</a>
+                  </div>
+                  <div class="label">
+                    {{pdfobj.name}}
+                  </div>
+                </div>
+              </div>
+            </object>
           </div>
+        </div>
+      {{/if}}
     </div><!-- .eleven.wide.column -->
   </div><!-- .ui.stackable.three.column.grid -->
 </template>

@@ -672,10 +672,6 @@ Template.livecs.helpers({
   havemsgs: () => { return Session.get('chtmsgs').length > 0; },
   human: (dte = new Date()) => { return moment(+dte).fromNow(); },
   semid: (id) => { return Session.get('semid'); },
-  semnm: () => {
-    let sem = Seminars.findOne({ _id: Session.get('semid') });
-    return sem && sem.name || "Veecaster Teleseminar";
-  },
   semnr: () => { return Seminars.findOne({ _id: Session.get('semid') }); },
   sgnin: () => { return Meteor.loggingIn(); },
   sgdin: () => { return !!Meteor.user(); },
@@ -690,6 +686,10 @@ Template.livecs.helpers({
   pdfurl: (id) => {
     let pdf = PDFs.collection.findOne({ _id: id });
     return (pdf && pdf.meta) && pdf.meta.pipeFrom || "";
+  },
+  pdfobj: () => {
+    let pid = Seminars.findOne({ _id: Session.get('semid') }).pdf.id;
+    return pdf = PDFs.collection.findOne({ _id: pid });
   },
   shwpdf: (url) => {
     /*
@@ -765,25 +765,6 @@ Template.livecs.onRendered(function() {
     setupTraineeMedia();
     console.log('>:< Trainee online');
   }
-  PDFJS.workerSrc = '/packages/pascoual_pdfjs/build/pdf.worker.js';
-  PDFJS.getDocument('https://pdfobject.com/pdf/sample-3pp.pdf')
-       .then(function getPdfHelloWorld(pdf) {
-    console.log('>:< Gotten!');
-    // Fetch the first page
-    pdf.getPage(1).then(function getPageHelloWorld(page) {
-      var scale = 1;
-      var viewport = page.getViewport(scale);
-      // Prepare canvas using PDF page dimensions
-      var canvas = document.getElementById('pdfcanvas');
-      var context = canvas.getContext('2d');
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-      // Render PDF page into canvas context
-      page.render({canvasContext: context, viewport: viewport}).promise.then(function () {
-        console.log('>:< Rendered');
-      });
-    });
-  });
 });
 
 var rfrshTwtsInt,
