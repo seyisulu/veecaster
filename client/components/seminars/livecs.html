@@ -13,24 +13,21 @@
         {{#if supportsMedia}}
           {{#if isCoach}}
             <div class="ui fluid card" id="vee-rec-card">
-              <div class="extra content">
-                <div class="ui two buttons">
-                  <button class="ui green vertical animated telestarter button" id="telestarter">
-                    <div class="visible content">Start Broadcast</div>
-                    <div class="hidden content">
-                      <i class="circle icon"></i>
-                    </div>
-                  </button>
-                  <button class="ui veecolour vertical animated telestopper button" id="telestopper">
-                    <div class="visible content">Stop Broadcast</div>
-                    <div class="hidden content">
-                      <i class="stop icon"></i>
-                    </div>
-                  </button>
+
+              <button class="ui top attached green vertical animated telestarter button" id="telestarter">
+                <div class="visible content">Start Broadcast</div>
+                <div class="hidden content">
+                  <i class="circle icon"></i>
                 </div>
-              </div>
-              <div class="image">
-                <canvas id="audispec" style="width:100%;height:250px;"></canvas>
+              </button>
+              <button class="ui top attached veecolour vertical animated telestopper button" id="telestopper">
+                <div class="visible content">Stop Broadcast</div>
+                <div class="hidden content">
+                  <i class="stop icon"></i>
+                </div>
+              </button>
+
+              <div id="visualizer" class="image" style="height: 320px;">
               </div>
               <div class="extra content">
                 <i class="red microphone icon"></i> Recording Volume: {{ volume }}%
@@ -226,9 +223,10 @@
     </div><!-- .five.wide.column -->
 
     <div class="eleven wide column">
-      <div class="ui segment">
-        PDF.js
-      </div>
+    
+          <div id="pdfContainer" class="ui segment">
+            <canvas id="pdfcanvas"></canvas>
+          </div>
     </div><!-- .eleven.wide.column -->
   </div><!-- .ui.stackable.three.column.grid -->
 </template>
