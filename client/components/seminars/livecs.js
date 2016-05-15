@@ -751,8 +751,12 @@ Template.livecs.events({
 
 Template.livecs.onRendered(function() {
   $('.menu .item').tab();
-  let lk = window.location;
-  client = new BinaryClient((lk.protocol==='http:' && 'ws:' || 'wss:') + '//' + lk.hostname + ':9000');
+  let lk = window.location, wk,
+      bp = Meteor.settings.public.veecaster.binserverp,
+      bs = Meteor.settings.public.veecaster.binservssl,
+      bu = Meteor.settings.public.veecaster.binserveru;
+  client = new BinaryClient(
+    (lk.protocol==='http:') && `ws://${bu}:${bp}` || `wss://${bu}:${bs}`);
   if (FlowRouter.getParam('coach') === Meteor.userId()) {
     this.find('#uploading').style.display = 'none';
     this.find('#uploaded').style.display = 'none';

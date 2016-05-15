@@ -51,7 +51,7 @@ Meteor.startup(() => {
 
   var BinaryServer = require('binaryjs').BinaryServer;
   var fs = require('fs');
-  var server = BinaryServer({ port: 9000 });
+  var server = BinaryServer({ port: Meteor.settings.public.veecaster.binserverp });
 
   server.on('connection', function(client) {
     console.log('>:< Binary server connection');

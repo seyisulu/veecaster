@@ -3,7 +3,6 @@ Template.semcard.onRendered(function() {
   //$('.menu .item').tab();
   $(`#semtab-${div.dataset.semid} .menu .item`).tab({ context: 'parent' });
 });
-
 Template.semcard.helpers({
   human: function(dte) {
     return moment(dte).fromNow();
