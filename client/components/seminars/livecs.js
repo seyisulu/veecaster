@@ -687,6 +687,14 @@ Template.livecs.helpers({
     let pdf = PDFs.collection.findOne({ _id: id });
     return (pdf && pdf.meta) && pdf.meta.pipeFrom || "";
   },
+  veepdf: (pdf) => {
+    let lk = window.location,
+        hn = lk.host;
+    return `http://${hn}/cdn/storage/pdfs/${pdf._id}/original/${pdf._id}.pdf`;
+  },
+  veebox: (pdf) => {
+    return (pdf && pdf.meta) && pdf.meta.pipeFrom.split('?')[0] || "";
+  },
   pdfobj: () => {
     let pid = Seminars.findOne({ _id: Session.get('semid') }).pdf.id;
     return pdf = PDFs.collection.findOne({ _id: pid });
