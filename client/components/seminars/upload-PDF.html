@@ -1,21 +1,16 @@
 <template name="uploadPDF">
   {{#if currentFile}}
-    <div class="ui statistic">
-      <div class="value">
-        <i class="pdf file outline icon"></i> {{currentFile.file.name}}
-      </div>
-      <div class="label">
-        Name
-      </div>
-    </div>
-    <div class="ui statistic">
-      <div class="value">
-        <i class="upload icon"></i> {{progress}}
-      </div>
-      <div class="label">
-        Percent
+
+    <div class="ui icon positive message">
+      <i class="notched circle loading icon"></i>
+      <div class="content">
+        <div class="header">
+          Veecaster: please wait...
+        </div>
+        <p>Uploading {{currentFile.file.name}}</p>
       </div>
     </div>
+
     <button id="resetPDF" class="ui labeled red icon button">
       <i class="refresh icon"></i>
       Reset

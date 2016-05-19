@@ -1,4 +1,4 @@
-import Recorder from '../../lib/recorder-js/recorder';
+//import Recorder from '../../lib/recorder-js/recorder';
 
 let insmsg = (sem, msg, usr, uid, tpl) => {
   Messages.insert({
@@ -409,15 +409,7 @@ var BinaryFileReader = {
     reader.readAsArrayBuffer(file);
   }
 };
-function convertFloat32ToInt16(buffer) {
-  l = buffer.length;
-  buf = new Int16Array(l);
-  while (l--) {
-    buf[l] = Math.min(1, buffer[l])*0x7FFF;
-  }
-  return buf.buffer;
-}
-// cross-browser supportsMedia query
+// cross-browser Multimedia query
 function supportsMedia() {
   return !!(navigator.getUserMedia              ||
             navigator.webkitGetUserMedia        ||
@@ -429,16 +421,14 @@ navigator.getUserMedia =  navigator.getUserMedia        ||
                           navigator.webkitGetUserMedia  ||
                           navigator.mozGetUserMedia     ||
                           navigator.msGetUserMedia;
-
 navigator.mediaDevices = navigator.mediaDevices ||
-   (getUserMedia ? {
+   (navigator.getUserMedia ? {
      getUserMedia: function(c) {
        return new Promise(function(y, n) {
          navigator.getUserMedia.call(navigator, c, y, n);
        });
      }
 } : null);
-
 window.URL = window.URL || window.webkitURL;
 window.requestAnimationFrame = (function () {
   return  window.requestAnimationFrame        ||
@@ -448,20 +438,14 @@ window.requestAnimationFrame = (function () {
           window.msRequestAnimationFrame
 })();
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-
-//videoCanvas
 var soundController = {},
     client, context, counter = 0,
     mediaStreamCoach, audioRecorder,
     recorderSetup, audioAnalyzerHub = {};
-
 soundController.streamerProcess = function (e) {
   var left = e.inputBuffer.getChannelData(0);
   if (soundController.streaming === true) {
-    // var chunk = convertFloat32ToInt16(left);
-    var chunk = left;
-    //console.log(++counter);
-    soundController.stream.write(chunk);
+    soundController.stream.write(left);
   }
 };
 soundController.startStreaming = function () {
@@ -575,7 +559,24 @@ function setupCoachMedia() {
 
     console.log('>:< Analyzer connected');
     // connect to Recorder
-    audioRecorder = new Recorder(audioInput);
+    //audioRecorder = new Recorder(audioInput);
+    audioRecorder = new WebAudioRecorder(audioInput, {
+      workerDir: "/recjs/",
+      encoding: "mp3"
+    });
+    audioRecorder.onEncoderLoading = function(rec, encoder) {
+      console.log('>:< MP3 Encoader Loading');
+    };
+    audioRecorder.onEncoderLoaded = function(rec, encoding) {
+      console.log('>:< MP3 Encoader Loaded');
+    };
+    audioRecorder.onComplete = function(recorder, blob) {
+      document.getElementById('vc-a-save').href = window.URL.createObjectURL(blob);
+      document.getElementById('vc-a-save').download = `${Session.get('semid')+'-'+Date.now()}.mp3`;
+    };
+    audioRecorder.onError = function(rec, message) {
+      console.log(message);
+    };
     recorderSetup = true;
     console.log('>:< Recorder connected');
     console.log('>:< This coach is ready to roll...');
@@ -623,12 +624,19 @@ function startRecording() {
     setupCoachMedia();
   }
   console.log(">:< Recording Started");
-  audioRecorder.record();
+  //audioRecorder.record();
+  document.getElementById('uploading').style.display = 'none';
+  document.getElementById('uploaded').style.display = 'none';
+  audioRecorder.startRecording();
 }
 
 function completeRecording() {
-  audioRecorder.stop();
+  //audioRecorder.stop();
+  document.getElementById('uploading').style.display = 'none';
+  document.getElementById('uploaded').style.display = 'block';
+  audioRecorder.finishRecording();
   console.log(">:< Recording stopped.");
+  /*
   document.getElementById('uploading').style.display = 'block';
   audioRecorder.exportWAV(function (audioBlob) {
     document.getElementById('uploading').style.display = 'none';
@@ -637,6 +645,7 @@ function completeRecording() {
     document.getElementById('vc-a-save').download = `${Session.get('semid')+'-'+Date.now()}.wav`;
  		audioRecorder.clear();
   });
+  */
   veeMsg('Audio sucessfully recorded.');
   //mediaStream.stop();
   //FlowRouter.go('/app/seminars');
@@ -693,11 +702,14 @@ Template.livecs.helpers({
     return `http://${hn}/cdn/storage/pdfs/${pdf._id}/original/${pdf._id}.pdf`;
   },
   veebox: (pdf) => {
-    return (pdf && pdf.meta) && pdf.meta.pipeFrom.split('?')[0] || "";
+    if (!pdf && !pdf.meta && !pdf.meta.pipeFrom) {
+      return '';
+    }
+    return pdf.meta.pipeFrom.split('?')[0];
   },
   pdfobj: () => {
-    let pid = Seminars.findOne({ _id: Session.get('semid') }).pdf.id;
-    return pdf = PDFs.collection.findOne({ _id: pid });
+    let sem = Seminars.findOne({ _id: Session.get('semid') });
+    return PDFs.collection.findOne({ _id: sem && sem.pdf.id || '' });
   },
   shwpdf: (url) => {
     /*
@@ -785,17 +797,17 @@ Template.livecs.onRendered(function() {
 });
 
 var rfrshTwtsInt,
-    rfrshMsgs = (n = 5) => {
+    rfrshMsgs = function(n = 5) {
       Session.set('chtmsgs', Messages.find({}, { order: { dte: -1 }, limit: n }).fetch().reverse());
     },
-    rfrshTwts = (n = 5) => {
+    rfrshTwts = function(n = 5) {
       if (!Meteor.user()) {
         return -1;
       }
       let scr = Meteor.user().profile.twittr;
       Meteor.call('getTweets',
                   { sem: Session.get('semid'), scr: scr.split('@')[1], n: n },
-                  (error) => {
+                  function(error) {
                     console.log(error && error || '>:< Tweets Refreshed');
                   });
     };
