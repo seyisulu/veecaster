@@ -810,11 +810,10 @@ var rfrshTwtsInt,
       } else {
         scr = scr.indexOf('@') === -1 && scr || scr.split('@')[1];
       }
-      Meteor.call('getTweets',
-                  { sem: Session.get('semid'), scr: scr, n: n },
-                  function(error) {
-                    console.log(error && error || '>:< Tweets Refreshed');
-                  });
+      Meteor.call('getTweets', { sem: Session.get('semid'), scr: scr, n: n },
+        function(error) {
+          console.log(error && error || '>:< Tweets Refreshed');
+        });
     };
 
 window.rfrshTwts = rfrshTwts;
