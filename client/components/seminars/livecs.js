@@ -771,7 +771,8 @@ Template.livecs.events({
 
 Template.livecs.onRendered(function() {
   $('.menu .item').tab();
-  let lk = window.location, wk = lk.hostname,
+  let lk = window.location,
+      ip = Meteor.settings.public.veecaster.binsrvhssl,
       bh = Meteor.settings.public.veecaster.binsrvhost,
       bp = Meteor.settings.public.veecaster.binsrvport,
       bs = Meteor.settings.public.veecaster.binsrvpssl,
@@ -779,7 +780,7 @@ Template.livecs.onRendered(function() {
   if (lk.hostname === "localhost") {
     client = new BinaryClient(`ws://${bh}:${bl}`);
   } else {
-    client = new BinaryClient((lk.protocol==='http:') && `ws://${wk}:${bp}` || `wss://${wk}:${bs}`);
+    client = new BinaryClient((lk.protocol==='http:') && `ws://${ip}:${bp}` || `wss://${ip}:${bs}`);
   }
   if (FlowRouter.getParam('coach') === Meteor.userId()) {
     this.find('#uploading').style.display = 'none';
@@ -804,8 +805,13 @@ var rfrshTwtsInt,
         return -1;
       }
       let scr = Meteor.user().profile.twittr;
+      if (!scr) {
+        scr = 'veecasterapp';
+      } else {
+        scr = scr.indexOf('@') === -1 && scr || scr.split('@')[1];
+      }
       Meteor.call('getTweets',
-                  { sem: Session.get('semid'), scr: scr.split('@')[1], n: n },
+                  { sem: Session.get('semid'), scr: scr, n: n },
                   function(error) {
                     console.log(error && error || '>:< Tweets Refreshed');
                   });
