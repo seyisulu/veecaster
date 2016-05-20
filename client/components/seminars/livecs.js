@@ -779,8 +779,7 @@ Template.livecs.onRendered(function() {
   if (lk.hostname === "localhost") {
     client = new BinaryClient(`ws://${bh}:${bl}`);
   } else {
-    //client = new BinaryClient((lk.protocol==='http:') && `ws://${wk}:${bp}` || `wss://${wk}:${bs}`);
-    client = new BinaryClient(`ws://${wk}:${bp}`);
+    client = new BinaryClient((lk.protocol==='http:') && `ws://${wk}:${bp}` || `wss://${wk}:${bs}`);
   }
   if (FlowRouter.getParam('coach') === Meteor.userId()) {
     this.find('#uploading').style.display = 'none';
