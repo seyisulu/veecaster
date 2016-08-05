@@ -772,6 +772,7 @@ Template.livecs.events({
 Template.livecs.onRendered(function() {
   $('.menu .item').tab();
   let lk = window.location,
+      wk = lk.hostname,
       ip = Meteor.settings.public.veecaster.binsrvhssl,
       bh = Meteor.settings.public.veecaster.binsrvhost,
       bp = Meteor.settings.public.veecaster.binsrvport,
@@ -780,7 +781,7 @@ Template.livecs.onRendered(function() {
   if (lk.hostname === "localhost") {
     client = new BinaryClient(`ws://${bh}:${bl}`);
   } else {
-    client = new BinaryClient((lk.protocol==='http:') && `ws://${ip}:${bp}` || `wss://${ip}:${bs}`);
+    client = new BinaryClient((lk.protocol==='http:') && `ws://${wk}:${bp}` || `wss://${wk}:${bs}`);
   }
   if (FlowRouter.getParam('coach') === Meteor.userId()) {
     this.find('#uploading').style.display = 'none';
