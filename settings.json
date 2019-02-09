@@ -1,0 +1,40 @@
+{
+  "public": {
+    "persistent_session": {
+      "default_method": "persistent"
+    },
+    "veecaster": {
+      "maxpdfszMB": 5,
+      "binsrvhost": "localhost",
+      "binsrvhssl": "45.63.15.21",
+      "binsrvlocl": 9000,
+      "binsrvport": 9080,
+      "binsrvpssl": 9443
+    }
+  },
+  "private": {
+    "twitter": {
+      "consumer_key": "",
+      "consumer_secret": "",
+      "access_token": "",
+      "access_token_secret": ""
+    },
+    "dropbox": {
+      "key": "",
+      "secret": "",
+      "token": ""
+    },
+    "yandex": {
+      "token": ""
+    },
+    "veecaster": {
+      "defpass": "passme",
+      "smtp": {
+        "username": "",
+        "password": "",
+        "server":   "",
+        "port": 587
+      }
+    }
+  }
+}
